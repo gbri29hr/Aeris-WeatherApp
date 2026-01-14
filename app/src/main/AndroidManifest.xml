@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permiso para acceder a Internet para APIs meteorol\u00f3gicas -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".AerisApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_app"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_app_round"
+        android:supportsRtl="true"
+        android:theme="@style/Aeris.Theme"
+        android:localeConfig="@xml/locales_config"
+        tools:targetApi="33">
+
+        <!-- Activity principal que muestra el clima actual y pronósticos -->
+        <activity
+            android:name=".view.activities.MainActivity"
+            android:exported="false" />
+        
+        <!-- Activity de configuración para cambiar unidades y tema -->
+        <activity
+            android:name=".view.activities.AjustesActivity"
+            android:exported="false" />
+        
+        <!-- Activity para gestionar la lista de ubicaciones guardadas -->
+        <activity
+            android:name=".view.activities.LocalizacionesActivity"
+            android:exported="false" />
+        
+        <!-- Activity con información sobre la aplicación y desarrollador -->
+        <activity
+            android:name=".view.activities.AcercaDeActivity"
+            android:exported="false" />
+
+        <!-- Activity de inicio/splash - Punto de entrada de la aplicación -->
+        <activity
+            android:name=".view.activities.InicioActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
