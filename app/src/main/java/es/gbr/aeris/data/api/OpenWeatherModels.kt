@@ -3,7 +3,7 @@ package es.gbr.aeris.data.api
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-// Modelos para OpenWeather API 2.5 (gratuita)
+// Modelos para OpenWeather API 2.5
 
 // Respuesta del clima actual
 @Serializable

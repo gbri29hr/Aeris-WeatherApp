@@ -42,7 +42,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         "Cádiz" to Triple(36.5271, -6.2886, "")
     )
 
-    // Sincronizar ciudad: OpenWeather completo
+    // Sincronizar ciudad
     suspend fun sincronizarCiudad(nombreCiudad: String): Boolean {
         val cityData = ciudadesData[nombreCiudad] ?: return false
         val (lat, lon, _) = cityData
@@ -50,7 +50,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         return try {
             Log.d("WeatherRepo", "Sincronizando $nombreCiudad")
 
-            // OpenWeather: temperaturas, descripciones, predicciones, UV, precipitación
+            // Temperaturas, descripciones, predicciones, UV, precipitación
             val climaActual = OpenWeatherClient.obtenerClimaActual(lat, lon)
             val prediccionOpenWeather = OpenWeatherClient.obtenerPrediccion5Dias(lat, lon)
             val indiceUV = OpenWeatherClient.obtenerIndiceUV(lat, lon)
@@ -59,7 +59,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
                 val ciudad = buscarOCrearCiudad(nombreCiudad, lat, lon)
                 val idCiudad = ciudad.idCiudad
 
-                // Guardar tiempo actual (OpenWeather completo)
+                // Guardar tiempo actual
                 val tiempoActual = convertirTiempoActual(idCiudad, climaActual, prediccionOpenWeather, indiceUV)
                 weatherDao.insertarTiempoActual(tiempoActual)
 
@@ -133,7 +133,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         return nueva.copy(idCiudad = id.toInt())
     }
 
-    // Convertir tiempo actual: OpenWeather completo
+    // Convertir tiempo actual
     private fun convertirTiempoActual(
         idCiudad: Int,
         climaActual: OpenWeatherCurrentResponse,
@@ -142,13 +142,12 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
     ): TiempoActualEntidad {
         val condicion = climaActual.weather.firstOrNull()
 
-        // OPENWEATHER: Temperaturas máx/mín del día actual y futuro
+
         // Usar todas las predicciones disponibles desde ahora en adelante
         val ahora = System.currentTimeMillis() / 1000
         val prediccionesDesdeAhora = prediccion?.list?.filter { it.dt >= ahora } ?: emptyList()
 
-        // Si hay predicciones, usar las primeras 8 (24 horas) para calcular máx/mín del día
-        // Si no hay predicciones, usar los valores actuales
+
         val tempMax = if (prediccionesDesdeAhora.isNotEmpty()) {
             prediccionesDesdeAhora.take(8).maxOfOrNull { it.main.tempMax } ?: climaActual.main.tempMax
         } else {
@@ -161,8 +160,8 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
             climaActual.main.tempMin
         }
 
-        // Probabilidad de precipitación: OpenWeather
-        // pop viene como 0.0 a 1.0, lo convertimos a porcentaje
+        // Probabilidad de precipitación
+        // pop viene como 0.0 a 1.0, lo convierto a porcentaje
         val probabilidadLluvia = prediccion?.list?.firstOrNull()?.let { 
             (it.pop * 100).toInt()
         } ?: 0
@@ -184,7 +183,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         )
     }
 
-    // Predicción horaria desde OpenWeather (cada 3h)
+    // Predicción horaria desde (cada 3h)
     private fun convertirPrediccionHorariOpenWeather(
         idCiudad: Int,
         prediccion: OpenWeatherForecastResponse
@@ -205,7 +204,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
             }
     }
 
-    // Convertir predicción diaria OpenWeather (máximo 5 días)
+    // Convertir predicción diaria (máximo 5 días)
     private fun convertirPrediccionDiaria(
         idCiudad: Int,
         prediccion: OpenWeatherForecastResponse
@@ -213,11 +212,11 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         val formatoDia = SimpleDateFormat("EEEE", Locale.getDefault())
         val formatoFecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         
-        // Obtener fecha de mañana (excluir día actual)
+        // Obtener fecha de mañana
         val manana = Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)
         val fechaManana = formatoFecha.format(manana)
 
-        // Agrupar por día y tomar SOLO los 5 primeros días completos desde mañana
+        // Agrupar por día y tomar SOLO los 5 primeros días
         val porDia = prediccion.list
             .filter { formatoFecha.format(Date(it.dt * 1000)) >= fechaManana }
             .groupBy { formatoFecha.format(Date(it.dt * 1000)) }
@@ -238,7 +237,7 @@ class OpenWeatherRepository(private val weatherDao: WeatherDao) {
         }
     }
 
-    // Mapear iconos OpenWeather
+    // Mapear iconos
     private fun mapearIconoOpenWeather(iconCode: String): String {
         return when {
             iconCode.startsWith("01") -> "ic_sol"
