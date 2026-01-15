@@ -42,7 +42,7 @@
 
     <string name="acerca_de_titulo">About</string>
     <string name="acerca_de_texto">AERIS\n\nThis application has been developed as a project using Android Studio.\n\nAPPLICATION INFORMATION:\n
-        • Version: 1.1\n• Developed by: Gabriel Hernández Rodríguez\n\nFEATURES:\n
+        • Version: 2.0\n• Developed by: Gabriel Hernández Rodríguez\n\nFEATURES:\n
         • Hourly and daily weather forecast\n• Multiple location management\n
         Detailed information on humidity, wind, UV and precipitation\n
         • Intuitive interface with Material3\n• Multi-language support (Spanish/English)\n
@@ -109,7 +109,7 @@
 
     <!-- About - Full screen -->
     <string name="acerca_volver">Back</string>
-    <string name="acerca_version">Version 1.1</string>
+    <string name="acerca_version">Version 2.0</string>
     <string name="acerca_informacion">Information</string>
     <string name="acerca_info_texto">Aeris is a weather application developed as an educational project that uses the OPEN WEATHER API to obtain real-time weather data.</string>
     <string name="acerca_tecnologias">Technologies</string>

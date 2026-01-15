@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -43,7 +42,7 @@ class AjustesActivity : ComponentActivity() {
         
         preferenciasRepository = PreferenciasRepository(applicationContext)
 
-        // Cargar preferencias guardadas
+        // Cargo preferencias
         lifecycleScope.launch {
             val prefs = preferenciasRepository.preferenciasFlow.first()
             usarFahrenheit = prefs.usarFahrenheit
@@ -95,15 +94,9 @@ class AjustesActivity : ComponentActivity() {
                     alCambiarTema = { nuevoValor ->
                         oscuro = nuevoValor
                         temaOscuro = nuevoValor
-                        aplicarTema(nuevoValor)
                         lifecycleScope.launch {
                             preferenciasRepository.guardarTemaOscuro(nuevoValor)
                         }
-                        Toast.makeText(contexto, 
-                            if (nuevoValor) contexto.getString(R.string.ajustes_oscuro) 
-                            else contexto.getString(R.string.ajustes_claro), 
-                            Toast.LENGTH_SHORT
-                        ).show()
                     },
                     alNavegarAInicio = {
                         val intencion = Intent(this, MainActivity::class.java)
@@ -134,14 +127,6 @@ class AjustesActivity : ComponentActivity() {
                     }
                 )
             }
-        }
-    }
-
-    private fun aplicarTema(esOscuro: Boolean) {
-        if (esOscuro) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }
@@ -272,7 +257,7 @@ fun PantallaAjustes(
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
-                            text = "Versión 1.1",
+                            text = "Versión 2.0",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

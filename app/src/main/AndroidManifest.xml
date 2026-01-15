@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permiso para acceder a Internet para APIs meteorol\u00f3gicas -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -38,7 +37,7 @@
             android:name=".view.activities.AcercaDeActivity"
             android:exported="false" />
 
-        <!-- Activity de inicio/splash - Punto de entrada de la aplicación -->
+        <!-- Activity de inicio -->
         <activity
             android:name=".view.activities.InicioActivity"
             android:exported="true">

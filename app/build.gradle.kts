@@ -14,8 +14,8 @@ android {
         applicationId = "es.gbr.aeris"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.1"
+        versionCode = 2
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,8 +45,6 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
 
     // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
@@ -70,12 +68,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.3")
 
-    // Ktor para llamadas a API REST
-    implementation("io.ktor:ktor-client-core:2.3.7")
+    // Ktor para llamadas a API
     implementation("io.ktor:ktor-client-android:2.3.7")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+
 
     // DataStore para preferencias del usuario
     implementation("androidx.datastore:datastore-preferences:1.1.1")

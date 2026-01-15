@@ -38,7 +38,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-// Gestión de ciudades: añadir, ocultar y ver tiempo de cada ubicación
+// Activity para gestionar las ciudades - añadir, ocultar, ver detalle
 class LocalizacionesActivity : ComponentActivity() {
 
     private val modeloVista: LocalizacionesViewModel by viewModels()
@@ -54,21 +54,21 @@ class LocalizacionesActivity : ComponentActivity() {
         
         preferenciasRepository = PreferenciasRepository(applicationContext)
 
-        // Cargar preferencias de DataStore primero
+        // Cargo preferencias
         lifecycleScope.launch {
             val prefs = preferenciasRepository.preferenciasFlow.first()
             usarFahrenheit = prefs.usarFahrenheit
             usarMph = prefs.usarMph
             temaOscuro = prefs.temaOscuro
             
-            // Los valores del intent tienen prioridad si existen
+            // Los valores del intent tienen prioridad
             intent.extras?.let {
                 if (it.containsKey("usarFahrenheit")) usarFahrenheit = it.getBoolean("usarFahrenheit")
                 if (it.containsKey("usarMph")) usarMph = it.getBoolean("usarMph")
                 if (it.containsKey("temaOscuro")) temaOscuro = it.getBoolean("temaOscuro")
             }
 
-            // Cargar ciudades visibles
+            // Cargo las ciudades que quiere ver el usuario
             val ciudadesVisibles = DatosCompartidos.obtenerCiudadesVisibles()
             modeloVista.actualizarCiudadesVisibles(ciudadesVisibles)
             

@@ -36,18 +36,29 @@ class AerisApplication : Application() {
                 // Sincronizar solo las ciudades visibles por el usuario
                 val ciudadesVisibles = DatosCompartidos.obtenerCiudadesVisibles()
                 
-                // Si no hay ciudades visibles (primera vez), sincronizar Ciudad Real por defecto
+                // Si no hay ciudades visibles (primera vez), inicializar solo 2 ciudades por defecto
                 if (ciudadesVisibles.isEmpty()) {
                     try {
-                        weatherRepository.sincronizarCiudad("Ciudad Real")
+                        // Solo 2 ciudades visibles por defecto: Ciudad Real y Madrid
+                        val ciudadesDefecto = listOf("Ciudad Real", "Madrid")
+                        
+                        for (nombreCiudad in ciudadesDefecto) {
+                            weatherRepository.sincronizarCiudad(nombreCiudad)
+                            val ciudad = weatherDao.buscarCiudadPorNombre(nombreCiudad)
+                            ciudad?.let { 
+                                DatosCompartidos.mostrarCiudad(it.idCiudad)
+                            }
+                        }
+                        
+                        // Establecer Ciudad Real como predeterminada
                         val ciudadReal = weatherDao.buscarCiudadPorNombre("Ciudad Real")
                         ciudadReal?.let { 
-                            DatosCompartidos.mostrarCiudad(it.idCiudad)
                             DatosCompartidos.idCiudadSeleccionada = it.idCiudad
                         }
-                        Log.d("AerisApp", "Ciudad Real inicializada como predeterminada")
+                        
+                        Log.d("AerisApp", "Ciudades por defecto inicializadas: Ciudad Real y Madrid")
                     } catch (e: Exception) {
-                        Log.e("AerisApp", "Error inicializando Ciudad Real: ${e.message}")
+                        Log.e("AerisApp", "Error inicializando ciudades por defecto: ${e.message}")
                     }
                 } else {
                     // Sincronizar solo las ciudades que el usuario tiene visibles

@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TEMA OSCURO -->
-    <style name="Aeris.Theme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primario_oscuro</item>
-        <item name="colorOnPrimary">@color/sobre_primario_oscuro</item>
-        <item name="colorPrimaryContainer">@color/contenedor_primario_oscuro</item>
-        <item name="colorOnPrimaryContainer">@color/sobre_contenedor_primario_oscuro</item>
+    <style name="Aeris.Theme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/primario_oscuro</item>
+        <item name="android:colorPrimary">@color/primario_oscuro</item>
         <item name="android:colorBackground">@color/fondo_oscuro</item>
-        <item name="colorOnBackground">@color/sobre_fondo_oscuro</item>
-        <item name="colorSurface">@color/superficie_oscuro</item>
-        <item name="colorOnSurface">@color/sobre_superficie_oscuro</item>
-        <item name="colorOnSurfaceVariant">@color/texto_variante_oscuro</item>
     </style>
 </resources>

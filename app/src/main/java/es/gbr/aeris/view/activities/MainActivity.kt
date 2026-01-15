@@ -48,7 +48,7 @@ import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 
-// Pantalla principal con datos meteorológicos, pronóstico horario y diario
+// Activity principal - muestra el tiempo actual y los pronósticos
 class MainActivity : ComponentActivity() {
 
     private val modeloVista: MainViewModel by viewModels()
@@ -64,14 +64,14 @@ class MainActivity : ComponentActivity() {
         
         preferenciasRepository = PreferenciasRepository(applicationContext)
 
-        // Cargar preferencias de DataStore primero
+        // Cargar las preferencias guardadas
         lifecycleScope.launch {
             val prefs = preferenciasRepository.preferenciasFlow.first()
             usarFahrenheit = prefs.usarFahrenheit
             usarMph = prefs.usarMph
             temaOscuro = prefs.temaOscuro
             
-            // Los valores del intent tienen prioridad si existen
+            // Si vienen valores desde otra pantalla, los uso
             intent.extras?.let {
                 if (it.containsKey("usarFahrenheit")) usarFahrenheit = it.getBoolean("usarFahrenheit")
                 if (it.containsKey("usarMph")) usarMph = it.getBoolean("usarMph")
@@ -85,8 +85,7 @@ class MainActivity : ComponentActivity() {
     
     override fun onResume() {
         super.onResume()
-        // Solo log, NO sincronizar automáticamente aquí
-        // El usuario puede hacer pull-to-refresh si quiere actualizar
+        // No sincronizo aquí, el usuario puede refrescar cuando quiera
         Log.d("MainActivity", "onResume")
     }
     
@@ -170,7 +169,7 @@ fun PantallaPrincipal(
         }
     ) { paddingValues ->
         if (tiempoActual == null) {
-            // Pantalla de carga mientras obtiene datos de AEMET
+            // Pantalla de carga mientras obtiene datos
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -328,7 +327,8 @@ fun ContenidoClimaPrincipal(
             text = "${temperatura.toInt()}°",
             fontSize = 96.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.padding(start =29.dp)
         )
         
         Text(

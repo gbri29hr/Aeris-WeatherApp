@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TEMA PRINCIPAL - Material 3 -->
-    <style name="Aeris.Theme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primario_claro</item>
-        <item name="colorOnPrimary">@color/sobre_primario_claro</item>
-        <item name="colorPrimaryContainer">@color/contenedor_primario_claro</item>
-        <item name="colorOnPrimaryContainer">@color/sobre_contenedor_primario_claro</item>
+    <style name="Aeris.Theme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primario_claro</item>
+        <item name="android:colorPrimary">@color/primario_claro</item>
         <item name="android:colorBackground">@color/fondo_claro</item>
-        <item name="colorOnBackground">@color/sobre_fondo_claro</item>
-        <item name="colorSurface">@color/superficie_claro</item>
-        <item name="colorOnSurface">@color/sobre_superficie_claro</item>
-        <item name="colorOnSurfaceVariant">@color/texto_variante_claro</item>
-    </style>
-    
-    <!-- Estilo personalizado para titulo de Toolbar (compatibilidad con XML legacy) -->
-    <style name="TextAppearance.Aeris.Toolbar.Title" parent="TextAppearance.Material3.TitleLarge">
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">20sp</item>
-        <item name="fontFamily">sans-serif-medium</item>
     </style>
 </resources>

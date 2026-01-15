@@ -56,10 +56,14 @@ abstract class AppDataBase : RoomDatabase() {
             }
         }
 
-        // Poblar la base de datos con ciudades principales de España al crear la BD por primera vez
+        // Poblar la base de datos con todas las ciudades disponibles al crear la BD
+        // Solo se mostrarán las que el usuario seleccione como visibles
         suspend fun populateDatabase(weatherDao: WeatherDao) {
+            // Ciudades por defecto visibles (solo 2)
             weatherDao.insertarCiudad(CiudadEntidad(nombre = "Ciudad Real", latitud = 38.9863, longitud = -3.9271))
             weatherDao.insertarCiudad(CiudadEntidad(nombre = "Madrid", latitud = 40.4168, longitud = -3.7038))
+            
+            // Resto de ciudades disponibles para añadir desde búsqueda
             weatherDao.insertarCiudad(CiudadEntidad(nombre = "Barcelona", latitud = 41.3851, longitud = 2.1734))
             weatherDao.insertarCiudad(CiudadEntidad(nombre = "Valencia", latitud = 39.4699, longitud = -0.3763))
             weatherDao.insertarCiudad(CiudadEntidad(nombre = "Sevilla", latitud = 37.3891, longitud = -5.9845))
