@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 // Cliente para OpenWeather API 2.5
 object OpenWeatherClient {
 
-    private const val API_KEY = "4e88640396039f0acbb94d6eced7a88c"
+    private const val API_KEY = "[Solicita tu api gratuita a OpenWeather y e introducela aqui]"
     private const val BASE_URL = "https://api.openweathermap.org/data/2.5"
 
     private val httpClient = HttpClient(Android) {
